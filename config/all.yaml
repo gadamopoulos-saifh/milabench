@@ -136,7 +136,15 @@ llm-full-mp-gpus:
   enabled: True
   weight: 1.0
 
-llm-full-mp-nodes:
+llm-full-mp-nodes-fsdp:
+  enabled: True
+  weight: 1.0
+
+llm-full-mp-nodes-tp:
+  enabled: True
+  weight: 1.0
+
+llm-full-mp-nodes-cp:
   enabled: True
   weight: 1.0
 
