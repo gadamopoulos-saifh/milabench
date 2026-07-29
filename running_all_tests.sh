@@ -14,6 +14,10 @@ export MILABENCH_SYSTEM="$PWD/config/system.yaml"
 export MILABENCH_SSH=~/.ssh/id_ed25519
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
+# clear out any previous run data, so re-runs start clean instead of
+# appending to old .data files (milabench opens them in append mode)
+rm -rf "$MILABENCH_BASE/runs"
+
 
 
 # installing milabench tests
