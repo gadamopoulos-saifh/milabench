@@ -1,6 +1,6 @@
 # setting up the environment
 if [ ! -d .venv ]; then
-  uv venv
+  uv venv --python 3.11
 fi
 source .venv/bin/activate
 uv pip install -e .[cuda]
