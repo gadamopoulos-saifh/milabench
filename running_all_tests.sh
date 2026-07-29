@@ -14,6 +14,22 @@ export MILABENCH_SYSTEM="$PWD/config/system.yaml"
 export MILABENCH_SSH=~/.ssh/id_ed25519
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
+# auto-generate a minimal single-node system.yaml if this machine doesn't
+# have one yet (GPU capacity/count are auto-detected by milabench itself;
+# only the node's name/ip/user are mandatory and can't be auto-discovered
+# for a real multi-node cluster, but this is enough for num_machines: 1)
+if [ ! -f config/system.yaml ]; then
+  cat > config/system.yaml <<EOF
+system:
+  arch: cuda
+  nodes:
+    - name: local
+      ip: 127.0.0.1
+      user: $(whoami)
+      main: true
+EOF
+fi
+
 # clear out any previous run data, so re-runs start clean instead of
 # appending to old .data files (milabench opens them in append mode)
 rm -rf "$MILABENCH_BASE/runs"
