@@ -5,6 +5,12 @@ Parses batch_size/packed out of each run's --run-name (expects the
 "<test>-bs<N>-<packed|unpacked>" convention used in running_all_tests.sh),
 and pulls the perf number out of the same .data files milabench itself
 reads for `milabench compare`.
+
+Deliberately doesn't reuse milabench.compare.fetch_runs: it tries to parse
+a date out of every run folder name assuming a "name.date.microseconds"
+shape, but milabench's own default auto-generated run names only have one
+dot ("word.timestamp"), which makes fetch_runs crash on its own defaults.
+We don't need date sorting here, so we just list the folders ourselves.
 """
 import argparse
 import csv
@@ -12,10 +18,18 @@ import os
 import re
 
 from milabench.common import _read_reports
-from milabench.compare import fetch_runs
 from milabench.summary import make_summary
 
 RUN_NAME_RE = re.compile(r"^(?P<test>fsdp|tp|cp)-bs(?P<batch_size>\d+)-(?P<packed>packed|unpacked)$")
+
+
+def list_runs(folder):
+    for name in sorted(os.listdir(folder)):
+        if name.startswith("install") or name.startswith("prepare"):
+            continue
+        path = os.path.join(folder, name)
+        if os.path.isdir(path):
+            yield name, path
 
 
 def main():
@@ -31,20 +45,23 @@ def main():
         base = os.environ["MILABENCH_BASE"]
         folder = os.path.join(base, "runs")
 
-    runs = fetch_runs(folder, None)
-
     with open(args.out, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["run_name", "test", "batch_size", "packed", "bench", "perf"])
 
-        for run in runs:
-            summary = make_summary(_read_reports(run.path))
-            m = RUN_NAME_RE.match(run.name)
+        for run_name, path in list_runs(folder):
+            m = RUN_NAME_RE.match(run_name)
             test, batch_size, packed = (m.group("test"), m.group("batch_size"), m.group("packed")) if m else ("", "", "")
+
+            summary = make_summary(_read_reports(path))
+            if not summary:
+                # run produced no usable data (e.g. crashed/OOM'd)
+                writer.writerow([run_name, test, batch_size, packed, "", ""])
+                continue
 
             for bench, metrics in summary.items():
                 perf = metrics.get(args.metric, {}).get(args.stat, "")
-                writer.writerow([run.name, test, batch_size, packed, bench, perf])
+                writer.writerow([run_name, test, batch_size, packed, bench, perf])
 
     print(f"Wrote {args.out}")
 
