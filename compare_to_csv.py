@@ -60,7 +60,9 @@ def main():
                 continue
 
             for bench, metrics in summary.items():
-                perf = metrics.get(args.metric, {}).get(args.stat, "")
+                # metrics.get(args.metric) can be present but None (e.g. the
+                # underlying aggregate hit an internal error), not just absent
+                perf = (metrics.get(args.metric) or {}).get(args.stat, "")
                 writer.writerow([run_name, test, batch_size, packed, bench, perf])
 
     print(f"Wrote {args.out}")
