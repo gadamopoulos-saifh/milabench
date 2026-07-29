@@ -61,6 +61,8 @@ def read_summary(path):
 
 
 def list_runs(folder):
+    if not os.path.isdir(folder):
+        return
     for name in sorted(os.listdir(folder)):
         if name.startswith("install") or name.startswith("prepare"):
             continue
