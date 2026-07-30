@@ -37,10 +37,10 @@ rm -rf "$MILABENCH_BASE/runs"
 
 
 # installing milabench tests
-milabench install --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp,llm-full-mp-nodes-tp,llm-full-mp-nodes-cp
+milabench install --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp,llm-full-mp-nodes-tp,llm-full-mp-nodes-cp,vllm-dense-physics-gpus,vllm-moe-code-gpus
 
 # preparing milabench tests
-milabench prepare --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp
+milabench prepare --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp,vllm-dense-physics-gpus,vllm-moe-code-gpus
 
 
 # FSDP
@@ -134,6 +134,34 @@ python compare_to_csv.py --out results.csv
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=256 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-cp --run-name cp-bs256-unpacked
 python compare_to_csv.py --out results.csv
 
+
+# inference tests
+milabench run --config config/all.yaml --system config/system.yaml --select vllm-dense-physics-gpus
+python compare_to_csv.py --out results.csv
+
+milabench run --config config/all.yaml --system config/system.yaml --select vllm-moe-code-gpus
+python compare_to_csv.py --out results.csv
+
+# vllm_main.py (standalone custom load test, not a milabench-managed benchmark)
+# needs its own vLLM server, since it's just an HTTP client
+# same on-disk weights used for the FSDP/TP/CP fine-tuning experiments
+# (checkpointer.checkpoint_dir={milabench_data}/llama3_70B there too)
+VLLM_MAIN_GPU_COUNT=$(nvidia-smi -L | wc -l)
+vllm serve "$MILABENCH_BASE/data/llama3_70B" --served-model-name model --port 8000 --tensor-parallel-size "$VLLM_MAIN_GPU_COUNT" &
+VLLM_MAIN_SERVER_PID=$!
+
+# a 70B model takes a while to load, give it up to 30 minutes to come up
+for i in $(seq 1 180); do
+  if curl -s -o /dev/null "http://127.0.0.1:8000/health"; then
+    break
+  fi
+  sleep 10
+done
+
+python vllm_main.py --host 127.0.0.1 --port 8000 --model model --csv results.csv --run-name vllm-main --bench vllm-main
+
+kill "$VLLM_MAIN_SERVER_PID"
+wait "$VLLM_MAIN_SERVER_PID" 2>/dev/null
 
 # collecting results
 python compare_to_csv.py --out results.csv
