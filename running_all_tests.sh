@@ -163,7 +163,9 @@ for i in $(seq 1 180); do
   sleep 10
 done
 
-python vllm_main.py --host 127.0.0.1 --port 8000 --model model --csv results.csv --run-name vllm-main --bench vllm-main
+python vllm_main.py --host 127.0.0.1 --port 8000 --model model -n 10000 --max-tokens 1000 --csv results.csv --run-name vllm-main-n10000-max1000 --bench vllm-main-n10000-max1000
+
+python vllm_main.py --host 127.0.0.1 --port 8000 --model model -n 100 --max-tokens 10000 --csv results.csv --run-name vllm-main-n100-max10000 --bench vllm-main-n100-max10000
 
 kill "$VLLM_MAIN_SERVER_PID"
 wait "$VLLM_MAIN_SERVER_PID" 2>/dev/null
