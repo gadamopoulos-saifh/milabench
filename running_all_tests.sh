@@ -142,6 +142,11 @@ python compare_to_csv.py --out results.csv
 milabench run --config config/all.yaml --system config/system.yaml --select vllm-moe-code-gpus
 python compare_to_csv.py --out results.csv
 
+# collecting results
+# (must run before vllm_main.py below: compare_to_csv.py overwrites results.csv
+# from scratch from runs/, which would wipe out vllm_main.py's appended row)
+python compare_to_csv.py --out results.csv
+
 # vllm_main.py (standalone custom load test, not a milabench-managed benchmark)
 # needs its own vLLM server, since it's just an HTTP client
 # same on-disk weights used for the FSDP/TP/CP fine-tuning experiments
@@ -162,6 +167,3 @@ python vllm_main.py --host 127.0.0.1 --port 8000 --model model --csv results.csv
 
 kill "$VLLM_MAIN_SERVER_PID"
 wait "$VLLM_MAIN_SERVER_PID" 2>/dev/null
-
-# collecting results
-python compare_to_csv.py --out results.csv
