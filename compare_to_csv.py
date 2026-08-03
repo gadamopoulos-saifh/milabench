@@ -75,7 +75,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("folder", nargs="?", default=None, help="runs/ folder, defaults to $MILABENCH_BASE/runs")
     parser.add_argument("--metric", default="train_rate")
-    parser.add_argument("--stat", default="median")
+    # mean (not median, which is what `milabench compare` defaults to) so the
+    # numbers here line up with what `milabench report` prints
+    parser.add_argument("--stat", default="mean")
     parser.add_argument("--out", default="results.csv")
     args = parser.parse_args()
 
