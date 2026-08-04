@@ -20,3 +20,16 @@ export MILABENCH_HF_TOKEN=xxxxx
 chmod +x running_all_tests.sh
 ./running_all_tests.sh
 ```
+
+Please return to us the ```results.csv```. 
+
+After this is done, please run the following to test the entire Milabench suite
+
+```bash
+cd milabench
+
+export MILABENCH_HF_TOKEN=xxxxx
+
+chmod +x running_full_milabench.sh
+./running_full_milabench.sh
+```
