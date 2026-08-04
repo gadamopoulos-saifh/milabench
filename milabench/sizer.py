@@ -588,6 +588,10 @@ def new_argument_resolver(pack):
     context["milabench_name"] = pack.config.get("name", None)
     context["benchmark_folder"] = pack.config.get('definition', None)
 
+    # Lets argv templates reference {llm_packed} to toggle torchtune's
+    # dataset.packed on the fly via MILABENCH_LLM_PACKED, without editing yaml
+    context["llm_packed"] = option("llm.packed", str, "False")
+
     def expr(ex):
         return ex
 

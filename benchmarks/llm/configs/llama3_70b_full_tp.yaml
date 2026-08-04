@@ -4,9 +4,9 @@ output_dir: /tmp/torchtune/llama3_1_70B/full
 
 # Parallelism -- pure FSDP (FULL_SHARD across all ranks)
 fsdp_reshard_after_forward: True
-tensor_parallel_dim: 1
+tensor_parallel_dim: 8
 data_parallel_replicate_dim: 1
-data_parallel_shard_dim: -1
+data_parallel_shard_dim: 1
 tensor_parallel_plan:
   _component_: torchtune.models.llama3.base_llama_tp_plan
 
