@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 # setting up the environment
 if [ ! -d .venv ]; then
