@@ -17,8 +17,11 @@ cd milabench
 
 export MILABENCH_HF_TOKEN=xxxxx
 
-chmod +x running_all_tests.sh
-./running_all_tests.sh
+chmod +x run_fsdp.sh run_tp.sh run_cp.sh run_inference.sh
+./run_fsdp.sh
+./run_tp.sh
+./run_cp.sh
+./run_inference.sh
 ```
 
-Please return to us the ```results.csv```. 
+Each script is self-contained (its own env setup, install, prepare) and writes its own results file. Please return to us all four: ```results_fsdp.csv```, ```results_tp.csv```, ```results_cp.csv```, ```results_inference.csv```.
