@@ -62,10 +62,31 @@ python compare_to_csv.py --out results_fsdp.csv
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=16 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs16-unpacked
 python compare_to_csv.py --out results_fsdp.csv
 
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=24 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs24-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=32 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs32-unpacked
 python compare_to_csv.py --out results_fsdp.csv
 
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=40 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs40-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=48 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs48-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=56 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs56-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=64 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs64-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=80 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs80-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=96 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs96-unpacked
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=112 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs112-unpacked
 python compare_to_csv.py --out results_fsdp.csv
 
 # packed
@@ -73,4 +94,10 @@ MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=2 MILABENCH_LLM_PACKED=True mi
 python compare_to_csv.py --out results_fsdp.csv
 
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=4 MILABENCH_LLM_PACKED=True milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs4-packed
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=8 MILABENCH_LLM_PACKED=True milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs8-packed
+python compare_to_csv.py --out results_fsdp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=16 MILABENCH_LLM_PACKED=True milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-fsdp --run-name fsdp-bs16-packed
 python compare_to_csv.py --out results_fsdp.csv

@@ -657,6 +657,37 @@ llm-full-mp-nodes-fsdp:
   requires_capabilities:
     - "len(nodes) >= ${..num_machines}"
 
+llm-full-mp-nodes-hsdp:
+  url: https://huggingface.co/meta-llama/Llama-3.1-70B
+  tags:
+    - multinode
+  max_duration: 3600
+  inherits: _llm
+  plan:
+    method: njobs
+    n: 1
+
+  argv:
+    # "{milabench_code}/bench/full_finetune_distributed.py": true
+    bench/full_finetune_distributed.py: true
+    --config: "{milabench_code}/configs/llama3_70B_full_hsdp.yaml"
+    epochs=1: true
+    output_dir={milabench_extra}/output: true
+    tokenizer.path={milabench_data}/llama3_70B/original/tokenizer.model: true
+    checkpointer.checkpoint_dir={milabench_data}/llama3_70B: true
+    checkpointer.output_dir={milabench_extra}/llama3_70B/: true
+    metric_logger.log_dir={milabench_extra}/metrics: true
+    repo_id="meta-llama/Llama-3.1-70B": true
+    safetensors=true: true
+    batch_size=auto_batch(2): true
+    dataset.packed={llm_packed}: true
+    gradient_accumulation_steps=1: true
+    device={device_name}: true
+
+  num_machines: 1
+  requires_capabilities:
+    - "len(nodes) >= ${..num_machines}"
+
 llm-full-mp-nodes-tp:
   url: https://huggingface.co/meta-llama/Llama-3.1-70B
   tags:

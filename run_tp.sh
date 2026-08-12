@@ -71,6 +71,30 @@ python compare_to_csv.py --out results_tp.csv
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=128 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs128-unpacked
 python compare_to_csv.py --out results_tp.csv
 
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=160 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs160-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=192 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs192-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=224 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs224-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=256 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs256-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=320 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs320-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=384 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs384-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=448 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs448-unpacked
+python compare_to_csv.py --out results_tp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=512 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs512-unpacked
+python compare_to_csv.py --out results_tp.csv
+
 #packed
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=2 MILABENCH_LLM_PACKED=True milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-tp --run-name tp-bs2-packed
 python compare_to_csv.py --out results_tp.csv

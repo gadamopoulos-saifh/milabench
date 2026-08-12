@@ -73,3 +73,15 @@ python compare_to_csv.py --out results_cp.csv
 
 MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=256 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-cp --run-name cp-bs256-unpacked
 python compare_to_csv.py --out results_cp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=320 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-cp --run-name cp-bs320-unpacked
+python compare_to_csv.py --out results_cp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=384 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-cp --run-name cp-bs384-unpacked
+python compare_to_csv.py --out results_cp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=448 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-cp --run-name cp-bs448-unpacked
+python compare_to_csv.py --out results_cp.csv
+
+MILABENCH_SIZER_AUTO=1 MILABENCH_SIZER_BATCH_SIZE=512 MILABENCH_LLM_PACKED=False milabench run --config config/all.yaml --system config/system.yaml --select llm-full-mp-nodes-cp --run-name cp-bs512-unpacked
+python compare_to_csv.py --out results_cp.csv
